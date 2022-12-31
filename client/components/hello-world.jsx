@@ -6,10 +6,13 @@ import { Container, Nav, Navbar, Image } from 'react-bootstrap';
 export default function HelloWorld(props) {
   const user = (
     <Image
-      src="https://github.com/mshaaban0.png"
+      src="/images/ryleyleho1.JPG"
       alt="UserName profile image"
       roundedCircle
-      style={{ width: '40px' }}
+      style={{
+        width: '50px',
+        height: '50px'
+      }}
     />
   );
   return (
