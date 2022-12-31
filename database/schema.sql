@@ -34,7 +34,7 @@ CREATE TABLE "public"."photos" (
 
 
 CREATE TABLE "public"."likes" (
-	"photoId" BINARY NOT NULL,
+	"photoId" integer NOT NULL,
 	"userId" integer NOT NULL,
 	"liked" BOOLEAN NOT NULL
 ) WITH (
