@@ -1,3 +1,16 @@
 .logo {
   font-family: "Sansita Swashed", cursive;
 }
+
+.profile {
+  object-fit: cover;
+  object-position: 75% 75%;
+}
+
+.nav-item {
+  text-align: start;
+}
+
+i {
+  padding: 5px;
+}
