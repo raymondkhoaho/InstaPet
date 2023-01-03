@@ -12,7 +12,6 @@ CREATE TABLE "public"."users" (
 	"hashedPassword" TEXT NOT NULL,
 	"profileImageUrl" TEXT NOT NULL,
 	"headerImageUrl" TEXT NOT NULL,
-	"createdAt" TIMESTAMP NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
