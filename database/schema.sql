@@ -10,8 +10,9 @@ CREATE TABLE "public"."users" (
 	"userId" serial NOT NULL,
 	"username" TEXT NOT NULL UNIQUE,
 	"hashedPassword" TEXT NOT NULL,
-	"profileImageUrl" TEXT NOT NULL,
-	"headerImageUrl" TEXT NOT NULL,
+	"profileImageUrl" TEXT NOT NULL DEFAULT '/images/header.jpeg',
+	"headerImageUrl" TEXT NOT NULL DEFAULT '/images/header.jpeg',
+  "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
 ) WITH (
   OIDS=FALSE
@@ -22,8 +23,8 @@ CREATE TABLE "public"."users" (
 CREATE TABLE "public"."photos" (
 	"photoId" serial NOT NULL,
 	"imageUrl" TEXT NOT NULL,
-	"caption" TEXT NOT NULL,
-	"createdAt" TIMESTAMP NOT NULL,
+	"caption" TEXT,
+	"createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	"userId" integer NOT NULL,
 	CONSTRAINT "photos_pk" PRIMARY KEY ("photoId")
 ) WITH (
@@ -47,7 +48,7 @@ CREATE TABLE "public"."comments" (
 	"photoId" integer NOT NULL,
 	"comment" TEXT NOT NULL,
 	"userId" integer NOT NULL,
-	"createdAt" TIMESTAMP NOT NULL,
+	"createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT "comments_pk" PRIMARY KEY ("commentId")
 ) WITH (
   OIDS=FALSE
