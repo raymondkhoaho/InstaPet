@@ -1,8 +1,44 @@
 import React from 'react';
 import Home from './pages/home';
+import NavBar from './components/navbar';
+import parseRoute from './lib/parse-route';
+import AppContext from './lib/app-context';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      route: parseRoute(window.location.hash)
+    };
+    this.renderPage = this.renderPage.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('hashchange', event => {
+      this.setState({ route: parseRoute(window.location.hash) });
+    });
+  }
+
+  renderPage() {
+    const { route } = this.state;
+    if (route.path === 'home' || route.path === '') {
+      return <Home />;
+    } else {
+      return null;
+    }
+  }
+
   render() {
-    return <Home />;
+    const { user, route } = this.state;
+    const contextValue = { user, route };
+    return (
+      <AppContext.Provider value={contextValue}>
+        <>
+          <NavBar />
+          { this.renderPage() }
+        </>
+      </AppContext.Provider>
+    );
   }
 }
