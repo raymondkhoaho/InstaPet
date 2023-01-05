@@ -1,11 +1,14 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
+import Lightbox from 'react-image-lightbox';
 
 export default class Explore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: null
+      photos: null,
+      photoIndex: null,
+      isOpen: false
     };
   }
 
@@ -29,14 +32,13 @@ export default class Explore extends React.Component {
         photo.className = 'square';
       }
     };
-
     const photos = photosList.map(photo => {
       const { imageUrl, photoId, caption } = photo;
       return (
-        <Image onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt={caption} />
+        <Image onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt={caption} onClick={() => this.setState({ isOpen: true, photoIndex: photoId - 1 })} />
       );
     });
-
+    const { photoIndex, isOpen } = this.state;
     return (
       <Container>
         <div>
@@ -47,6 +49,26 @@ export default class Explore extends React.Component {
         <div>
           <div className="photo-gallery">
             {photos}
+            {isOpen && (
+              <Lightbox
+                imageCaption={photos[photoIndex].props.alt}
+                imagePadding={50}
+                mainSrc={photos[photoIndex].props.src}
+                nextSrc={photos[(photoIndex + 1) % photosList.length].props.src}
+                prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].props.src}
+                onCloseRequest={() => this.setState({ isOpen: false })}
+                onMovePrevRequest={() =>
+                  this.setState({
+                    photoIndex: (photoIndex + photosList.length - 1) % photos.length
+                  })
+                }
+                onMoveNextRequest={() =>
+                  this.setState({
+                    photoIndex: (photoIndex + 1) % photos.length
+                  })
+                }
+              />
+            )}
           </div>
         </div>
       </Container>
