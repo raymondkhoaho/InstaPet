@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 export default class Explore extends React.Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class Explore extends React.Component {
             {isOpen && (
               <Lightbox
                 imageCaption={photos[photoIndex].props.alt}
-                imagePadding={100}
+                imagePadding={10}
                 mainSrc={photos[photoIndex].props.src}
                 nextSrc={photos[(photoIndex + 1) % photosList.length].props.src}
                 prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].props.src}
