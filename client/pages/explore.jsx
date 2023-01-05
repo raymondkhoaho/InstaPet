@@ -39,7 +39,6 @@ export default class Explore extends React.Component {
       );
     });
     const { photoIndex, isOpen } = this.state;
-
     return (
       <Container>
         <div>
@@ -52,6 +51,7 @@ export default class Explore extends React.Component {
             {photos}
             {isOpen && (
               <Lightbox
+                imageCaption={photos[photoIndex].props.alt}
                 imagePadding={100}
                 mainSrc={photos[photoIndex].props.src}
                 nextSrc={photos[(photoIndex + 1) % photosList.length].props.src}
