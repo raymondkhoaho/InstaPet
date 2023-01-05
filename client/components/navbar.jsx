@@ -20,7 +20,7 @@ export default function NavBar(props) {
     <div>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand className="logo fs-2" href="#home">InstaPet</Navbar.Brand>
+          <Navbar.Brand className="logo fs-2" href="#explore">InstaPet</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto d-lg-flex align-items-center">

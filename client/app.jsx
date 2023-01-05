@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './pages/home';
+import Explore from './pages/explore';
 import NavBar from './components/navbar';
 import parseRoute from './lib/parse-route';
 import AppContext from './lib/app-context';
@@ -22,8 +22,8 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route } = this.state;
-    if (route.path === 'home' || route.path === '') {
-      return <Home />;
+    if (route.path === 'explore' || route.path === '') {
+      return <Explore />;
     } else {
       return null;
     }
