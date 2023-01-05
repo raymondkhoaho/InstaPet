@@ -52,7 +52,7 @@ export default class Explore extends React.Component {
             {isOpen && (
               <Lightbox
                 imageCaption={photos[photoIndex].props.alt}
-                imagePadding={100}
+                imagePadding={50}
                 mainSrc={photos[photoIndex].props.src}
                 nextSrc={photos[(photoIndex + 1) % photosList.length].props.src}
                 prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].props.src}
