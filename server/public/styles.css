@@ -1,0 +1,38 @@
+.logo {
+  font-family: "Sansita Swashed", cursive;
+}
+
+.profile {
+  object-fit: cover;
+  object-position: 75% 75%;
+}
+
+h3 {
+  font-family: Sansita, serif;
+}
+
+img {
+  cursor: pointer;
+  transition: 0.5s ease-out;
+  object-fit: cover;
+  margin: 0.1rem;
+  flex-grow: 1;
+}
+
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  transition: 1s linear;
+}
+
+.landscape {
+  width: 75%;
+}
+
+.portrait {
+  width: 22%;
+}
+
+.square {
+  width: 60%;
+}
