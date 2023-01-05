@@ -1,6 +1,5 @@
 import React from 'react';
-// import Image from 'react-bootstrap/Image';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Container, Image } from 'react-bootstrap';
 
 export default class Explore extends React.Component {
   constructor(props) {
@@ -36,16 +35,23 @@ export default class Explore extends React.Component {
       photoId++;
       const { imageUrl } = photo;
       return (
-        <img onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt='photo' />
+        <Image onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt='photo' />
       );
     });
 
     return (
-      <div id="gallery-container" className="container mt-5 pt-5">
-        <div id="gallery" className="img-gallery">
-          {photos}
+      <Container>
+        <div>
+          <h3 className="mt-2">
+            Explore
+          </h3>
         </div>
-      </div>
+        <div>
+          <div className="photo-gallery">
+            {photos}
+          </div>
+        </div>
+      </Container>
     );
   }
 }

@@ -1,0 +1,41 @@
+@media screen and (min-width: 768px) {
+  .landscape {
+    width: 48%;
+  }
+
+  .portrait {
+    width: 20%;
+  }
+
+  .square {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .landscape {
+    width: 45%;
+  }
+
+  .portrait {
+    width: 25%;
+  }
+
+  .square {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .landscape {
+    width: 30%;
+  }
+
+  .portrait {
+    width: 20%;
+  }
+
+  .square {
+    width: 20%;
+  }
+}
