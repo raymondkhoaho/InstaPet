@@ -24,9 +24,9 @@ export default function NavBar(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto d-lg-flex align-items-center">
-              <Nav.Link href="#explore"><i className="fa-solid fa-magnifying-glass" />Explore</Nav.Link>
-              <Nav.Link href="#users"><i className="icon fa-solid fa-users" />Users</Nav.Link>
-              <Nav.Link href="#newpost"><i className="fa-solid fa-circle-plus" />New Post</Nav.Link>
+              <Nav.Link href="#explore"><i className="fa-solid fa-magnifying-glass p-2" />Explore</Nav.Link>
+              <Nav.Link href="#users"><i className="icon fa-solid fa-users p-2" />Users</Nav.Link>
+              <Nav.Link href="#newpost"><i className="fa-solid fa-circle-plus p-2" />New Post</Nav.Link>
               <Nav.Link href="#profile">{ user }</Nav.Link>
             </Nav>
           </Navbar.Collapse>

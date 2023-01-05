@@ -30,12 +30,10 @@ export default class Explore extends React.Component {
       }
     };
 
-    let photoId = 0;
     const photos = photosList.map(photo => {
-      photoId++;
-      const { imageUrl } = photo;
+      const { imageUrl, photoId, caption } = photo;
       return (
-        <Image onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt='photo' />
+        <Image onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt={caption} />
       );
     });
 
