@@ -27,24 +27,27 @@ export default class Users extends React.Component {
     const users = usersList.map(user => {
       const { profileImageUrl, userId, username } = user;
       return (
-        <div key={userId} className="col-12 col-md-4 col-lg-3 card-container m-1" onClick={this.handleClick}>
-          <div>
-            <Image
-              key={userId}
-              src={profileImageUrl}
-              alt={username}
-              className="user-profile-image p-2"
-              roundedCircle
-              style={{
-                width: '100px',
-                height: '100px'
-              }}
-            />
-            <p>
-              {username}
-            </p>
+        <div key={userId} className="p-1 col-12 col-md-6 col-lg-4">
+          <div className="card-container" onClick={this.handleClick}>
+            <div>
+              <Image
+                key={userId}
+                src={profileImageUrl}
+                alt={username}
+                className="user-profile-image p-2"
+                roundedCircle
+                style={{
+                  width: '100px',
+                  height: '100px'
+                }}
+              />
+              <p>
+                {username}
+              </p>
+            </div>
           </div>
         </div>
+
       );
     });
     return (
