@@ -32,12 +32,18 @@ export default class Explore extends React.Component {
         photo.className = 'square';
       }
     };
-    const photos = photosList.map(photo => {
+    const photos = photosList.map((photo, index) => {
       const { imageUrl, photoId, caption } = photo;
       return (
-        <Image onLoad={onPhotoLoad} key={photoId} src={imageUrl} alt={caption} onClick={() => this.setState({ isOpen: true, photoIndex: photoId - 1 })} />
+        <Image
+        onLoad={onPhotoLoad}
+        key={photoId}
+        src={imageUrl}
+        alt={caption}
+        onClick={() => this.setState({ isOpen: true, photoIndex: index })} />
       );
     });
+
     const { photoIndex, isOpen } = this.state;
     return (
       <Container>
@@ -47,7 +53,7 @@ export default class Explore extends React.Component {
           </h3>
         </div>
         <div>
-          <div className="photo-gallery">
+          <div className="photo-gallery d-flex flex-wrap">
             {photos}
             {isOpen && (
               <Lightbox

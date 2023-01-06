@@ -2,7 +2,7 @@
   font-family: "Sansita Swashed", cursive;
 }
 
-.profile {
+.user-profile-image {
   object-fit: cover;
   object-position: 75% 75%;
 }
@@ -19,10 +19,22 @@ img {
   flex-grow: 1;
 }
 
-.photo-gallery {
-  display: flex;
-  flex-wrap: wrap;
+.photo-gallery,
+.user-gallery {
   transition: 1s linear;
+}
+
+.card-container {
+  cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: rgb(241, 239, 239);
+}
+
+p {
+  display: inline;
+  font-family: Roboto, serif;
+  font-weight: bold;
 }
 
 .landscape {

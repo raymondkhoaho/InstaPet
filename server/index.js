@@ -18,8 +18,36 @@ app.use(express.json());
 
 app.get('/api/photos', (req, res, next) => {
   const sql = `
-  select *
-    from "photos"
+  select "p"."caption",
+         "p"."createdAt",
+         "p"."imageUrl",
+         "p"."photoId",
+         "p"."userId",
+         "u"."profileImageUrl",
+         "u"."username"
+    from "photos" as "p"
+    join "users" as "u" using ("userId")
+    order by "photoId" desc
+  `;
+
+  db.query(sql)
+    .then(result => {
+      const photos = result.rows;
+      res.status(200).json(photos);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'An unexpected error occured.' });
+    });
+});
+
+app.get('/api/users', (req, res, next) => {
+  const sql = `
+  select "userId",
+         "username",
+         "profileImageUrl",
+         "headerImageUrl"
+    from "users"
   `;
 
   db.query(sql)

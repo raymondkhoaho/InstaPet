@@ -8,7 +8,7 @@ export default function NavBar(props) {
     <Image
       src="/images/ryleyleho1.JPG"
       alt="UserName profile image"
-      className="profile"
+      className="user-profile-image"
       roundedCircle
       style={{
         width: '50px',
