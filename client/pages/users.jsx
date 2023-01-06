@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Image } from 'react-bootstrap';
+import { Container, Image, Card } from 'react-bootstrap';
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -22,17 +22,19 @@ export default class Users extends React.Component {
     const users = usersList.map(user => {
       const { profileImageUrl, userId, username } = user;
       return (
-        <Image
-        key={userId}
-        src={profileImageUrl}
-        alt={username}
-        className="user-profile-image"
-        roundedCircle
-        style={{
-          width: '100px',
-          height: '100px'
-        }}
-        />
+        <Card key={userId} className="col-12 col-md-6 col-lg-4">
+          <Image
+            key={userId}
+            src={profileImageUrl}
+            alt={username}
+            className="user-profile-image"
+            roundedCircle
+            style={{
+              width: '100px',
+              height: '100px'
+            }}
+          />
+        </Card>
       );
     });
     return (

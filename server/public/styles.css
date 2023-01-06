@@ -28,7 +28,6 @@ img {
 
 .user-gallery {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   transition: 1s linear;
 }
