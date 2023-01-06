@@ -9,6 +9,11 @@ export default class Users extends React.Component {
     };
   }
 
+  handleClick() {
+    // eslint-disable-next-line no-console
+    console.log('hello');
+  }
+
   componentDidMount() {
     fetch('/api/users')
       .then(res => res.json())
@@ -22,18 +27,23 @@ export default class Users extends React.Component {
     const users = usersList.map(user => {
       const { profileImageUrl, userId, username } = user;
       return (
-        <Card key={userId} className="col-12 col-md-6 col-lg-4">
+        <Card key={userId} className="col-12 col-md-6 col-lg-4" onClick={this.handleClick}>
           <Image
             key={userId}
             src={profileImageUrl}
             alt={username}
-            className="user-profile-image"
+            className="user-profile-image p-2"
             roundedCircle
             style={{
               width: '100px',
               height: '100px'
             }}
           />
+          <Card.Body key={`${userId}-body`}>
+            <Card.Title key={`${userId}-title`}>
+              {username}
+            </Card.Title>
+          </Card.Body>
         </Card>
       );
     });

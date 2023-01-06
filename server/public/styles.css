@@ -2,7 +2,6 @@
   font-family: "Sansita Swashed", cursive;
 }
 
-.profile,
 .user-profile-image {
   object-fit: cover;
   object-position: 75% 75%;
@@ -23,6 +22,10 @@ img {
 .photo-gallery,
 .user-gallery {
   transition: 1s linear;
+}
+
+.card {
+  cursor: pointer;
 }
 
 .landscape {
