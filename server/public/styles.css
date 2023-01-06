@@ -24,8 +24,17 @@ img {
   transition: 1s linear;
 }
 
-.card {
+.card-container {
   cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: rgb(241, 239, 239);
+}
+
+p {
+  display: inline;
+  font-family: Roboto, serif;
+  font-weight: bold;
 }
 
 .landscape {
