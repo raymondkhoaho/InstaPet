@@ -2,7 +2,8 @@
   font-family: "Sansita Swashed", cursive;
 }
 
-.profile {
+.profile,
+.user-profile-image {
   object-fit: cover;
   object-position: 75% 75%;
 }
@@ -21,6 +22,13 @@ img {
 
 .photo-gallery {
   display: flex;
+  flex-wrap: wrap;
+  transition: 1s linear;
+}
+
+.user-gallery {
+  display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   transition: 1s linear;
 }
