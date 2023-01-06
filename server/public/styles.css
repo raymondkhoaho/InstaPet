@@ -20,15 +20,8 @@ img {
   flex-grow: 1;
 }
 
-.photo-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  transition: 1s linear;
-}
-
+.photo-gallery,
 .user-gallery {
-  display: flex;
-  flex-wrap: wrap;
   transition: 1s linear;
 }
 

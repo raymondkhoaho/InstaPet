@@ -27,6 +27,7 @@ app.get('/api/photos', (req, res, next) => {
          "u"."username"
     from "photos" as "p"
     join "users" as "u" using ("userId")
+    order by "photoId" desc
   `;
 
   db.query(sql)

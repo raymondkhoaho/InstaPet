@@ -45,7 +45,7 @@ export default class Users extends React.Component {
           </h3>
         </div>
         <div>
-          <div className="user-gallery">
+          <div className="user-gallery d-flex flex-wrap">
             {users}
           </div>
         </div>
