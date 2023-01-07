@@ -35,10 +35,7 @@ app.get('/api/photos', (req, res, next) => {
       const photos = result.rows;
       res.status(200).json(photos);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'An unexpected error occured.' });
-    });
+    .catch(err => next(err));
 });
 
 app.get('/api/users', (req, res, next) => {
@@ -55,10 +52,7 @@ app.get('/api/users', (req, res, next) => {
       const photos = result.rows;
       res.status(200).json(photos);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'An unexpected error occured.' });
-    });
+    .catch(err => next(err));
 });
 
 app.get('/api/users/:userId', (req, res, next) => {
@@ -86,10 +80,7 @@ app.get('/api/users/:userId', (req, res, next) => {
         res.status(200).json(user);
       }
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'An unexpected error occured.' });
-    });
+    .catch(err => next(err));
 }
 );
 
