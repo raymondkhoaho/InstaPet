@@ -2,7 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
-// const ClientError = require('./client-error');
+const ClientError = require('./client-error');
 const pg = require('pg');
 
 const app = express();
@@ -75,7 +75,7 @@ app.get('/api/users/:userId', (req, res, next) => {
     .then(result => {
       const user = result.rows;
       if (!user) {
-        res.status(404).json({ error: `Cannot find user with userId ${id}` });
+        throw new ClientError(404, `Cannot find user with userId ${id}`);
       } else {
         res.status(200).json(user);
       }
