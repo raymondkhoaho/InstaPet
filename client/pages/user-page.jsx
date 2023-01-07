@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Image, Nav } from 'react-bootstrap';
+import { Container, Image } from 'react-bootstrap';
 
-export default class Users extends React.Component {
+export default class UserPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,7 +28,7 @@ export default class Users extends React.Component {
       const { profileImageUrl, userId, username } = user;
       return (
         <div key={userId} className="p-1 col-12 col-md-6 col-lg-4">
-          <Nav.Link href={`#users/${username}`} className="card-container" onClick={this.handleClick}>
+          <div className="card-container" onClick={this.handleClick}>
             <div>
               <Image
                 key={userId}
@@ -45,7 +45,7 @@ export default class Users extends React.Component {
                 {username}
               </p>
             </div>
-          </Nav.Link>
+          </div>
         </div>
 
       );

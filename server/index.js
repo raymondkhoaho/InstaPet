@@ -61,6 +61,38 @@ app.get('/api/users', (req, res, next) => {
     });
 });
 
+app.get('/api/users/:userId', (req, res, next) => {
+  const id = Number(req.params.userId);
+  const sql = `
+  select "p"."caption",
+         "p"."createdAt",
+         "p"."imageUrl",
+         "p"."photoId",
+         "p"."userId",
+         "u"."profileImageUrl",
+         "u"."username"
+    from "photos" as "p"
+    join "users" as "u" using ("userId")
+    where "u"."userId" = $1
+    order by "photoId" desc
+  `;
+  const param = [id];
+  db.query(sql, param)
+    .then(result => {
+      const user = result.rows;
+      if (!user) {
+        res.status(404).json({ error: `Cannot find user with userId ${id}` });
+      } else {
+        res.status(200).json(user);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'An unexpected error occured.' });
+    });
+}
+);
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
