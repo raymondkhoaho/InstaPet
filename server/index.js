@@ -55,8 +55,8 @@ app.get('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/users/:userId', (req, res, next) => {
-  const id = Number(req.params.userId);
+app.get('/api/user/:username', (req, res, next) => {
+  const id = req.params.username;
   const sql = `
   select "p"."caption",
          "p"."createdAt",
@@ -64,10 +64,11 @@ app.get('/api/users/:userId', (req, res, next) => {
          "p"."photoId",
          "p"."userId",
          "u"."profileImageUrl",
+         "u"."headerImageUrl",
          "u"."username"
     from "photos" as "p"
     join "users" as "u" using ("userId")
-    where "u"."userId" = $1
+    where "u"."username" = $1
     order by "photoId" desc
   `;
   const param = [id];

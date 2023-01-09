@@ -1,68 +1,90 @@
 import React from 'react';
-import { Container, Image } from 'react-bootstrap';
+import { Image, Container } from 'react-bootstrap';
+import Lightbox from 'react-image-lightbox';
 
 export default class UserPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: null
+      user: null,
+      photos: null
     };
   }
 
-  handleClick() {
-    // eslint-disable-next-line no-console
-    console.log('hello');
-  }
-
   componentDidMount() {
-    fetch('/api/users')
+    fetch('/api/user/' + this.props.username)
       .then(res => res.json())
-      .then(users => this.setState({ users }))
+      .then(user => this.setState({ user }))
       .catch(err => console.error(err));
+
   }
 
   render() {
-    if (!this.state.users) return null;
-    const usersList = this.state.users;
-    const users = usersList.map(user => {
-      const { profileImageUrl, userId, username } = user;
+    if (!this.state.user) return null;
+    const user = this.state.user;
+    const { headerImageUrl, profileImageUrl, username } = user[0];
+    const onPhotoLoad = ({ target: photo }) => {
+      const { offsetHeight: height, offsetWidth: width } = photo;
+      if (width > height) {
+        photo.className = 'landscape';
+      } else if (width < height) {
+        photo.className = 'portrait';
+      } else {
+        photo.className = 'square';
+      }
+    };
+    const photos = user.map((photo, index) => {
+      const { imageUrl, photoId, caption } = photo;
       return (
-        <div key={userId} className="p-1 col-12 col-md-6 col-lg-4">
-          <div className="card-container" onClick={this.handleClick}>
-            <div>
-              <Image
-                key={userId}
-                src={profileImageUrl}
-                alt={username}
-                className="user-profile-image p-2"
-                roundedCircle
-                style={{
-                  width: '100px',
-                  height: '100px'
-                }}
-              />
-              <p>
-                {username}
-              </p>
-            </div>
-          </div>
-        </div>
-
+        <Image
+        onLoad={onPhotoLoad}
+        key={photoId}
+        src={imageUrl}
+        alt={caption}
+        onClick={() => this.setState({ isOpen: true, photoIndex: index })} />
       );
     });
+
+    const { photoIndex, isOpen } = this.state;
     return (
-      <Container>
-        <div>
-          <h3 className="mt-2">
-            Users
-          </h3>
+      <>
+        <div className="header-container">
+          <Image className="header-image" src={headerImageUrl} alt="header-image" />
+          <Image className="profile-image" src={profileImageUrl} alt="profile-image" roundedCircle
+            style={{
+              width: '150px',
+              height: '150px'
+            }} />
+          <h2 className="header-username">{username}</h2>
         </div>
-        <div>
-          <div className="user-gallery d-flex flex-wrap">
-            {users}
+        <Container>
+          <div>
+            <div className="photo-gallery d-flex flex-wrap">
+              {photos}
+              {isOpen && (
+              <Lightbox
+              imageCaption={photos[photoIndex].props.alt}
+              imagePadding={50}
+              mainSrc={photos[photoIndex].props.src}
+              nextSrc={photos[(photoIndex + 1) % user.length].props.src}
+              prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].props.src}
+              onCloseRequest={() => this.setState({ isOpen: false })}
+              onMovePrevRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + user.length - 1) % photos.length
+                })
+              }
+              onMoveNextRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + 1) % photos.length
+                })
+              }
+            />
+              )}
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </>
     );
   }
 }

@@ -24,6 +24,29 @@ img {
   transition: 1s linear;
 }
 
+.header-container {
+  display: flex;
+}
+
+.header-image {
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+}
+
+.header-username {
+  position: absolute;
+  left: 225px;
+  top: 225px;
+  color: white;
+}
+
+.profile-image {
+  position: absolute;
+  top: 150px;
+  left: 75px;
+}
+
 .card-container {
   cursor: pointer;
   border: 1px solid grey;

@@ -9,11 +9,6 @@ export default class Users extends React.Component {
     };
   }
 
-  handleClick() {
-    // eslint-disable-next-line no-console
-    console.log('hello');
-  }
-
   componentDidMount() {
     fetch('/api/users')
       .then(res => res.json())
@@ -28,7 +23,7 @@ export default class Users extends React.Component {
       const { profileImageUrl, userId, username } = user;
       return (
         <div key={userId} className="p-1 col-12 col-md-6 col-lg-4">
-          <Nav.Link href={`#users/${username}`} className="card-container" onClick={this.handleClick}>
+          <Nav.Link href={`#user?username=${username}`} className="card-container">
             <div>
               <Image
                 key={userId}

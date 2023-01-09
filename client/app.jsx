@@ -29,8 +29,9 @@ export default class App extends React.Component {
       return <Explore />;
     } else if (route.path === 'users') {
       return <Users />;
-    } else if (route.path === 'user-page') {
-      return <UserPage />;
+    } else if (route.path === 'user') {
+      const username = route.params.get('username');
+      return <UserPage username={username}/>;
     } else {
       return null;
     }
