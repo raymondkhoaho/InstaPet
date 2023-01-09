@@ -29,4 +29,9 @@ values (4, '/images/juniper5.JPG', 'juniper-5'),
        (1, '/images/ryleyleho4.JPG', 'ryleyleho-4'),
        (1, '/images/ryleyleho3.JPG', 'ryleyleho-3'),
        (1, '/images/ryleyleho2.JPG', 'ryleyleho-2'),
-       (1, '/images/ryleyleho1.JPG', 'ryleyleho-1');
+       (1, '/images/ryleyleho1.JPG', 'ryleyleho-1'),
+       (1, '/images/ryleyleho6.jpg', 'ryleyleho-6'),
+       (1, '/images/ryleyleho7.JPG', 'ryleyleho-7'),
+       (1, '/images/ryleyleho8.jpg', 'ryleyleho-8'),
+       (1, '/images/ryleyleho9.jpg', 'ryleyleho-9'),
+       (1, '/images/ryleyleho10.jpg', 'ryleyleho-10');
