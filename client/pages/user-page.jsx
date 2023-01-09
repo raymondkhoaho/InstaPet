@@ -25,10 +25,10 @@ export default class UserPage extends React.Component {
     const user = this.state.user;
     const { headerImageUrl, profileImageUrl, username } = user[0];
     const onPhotoLoad = ({ target: photo }) => {
-      const { offsetHeight: height, offsetWidth: width } = photo;
-      if (width > height) {
+      const { offsetHeight, offsetWidth } = photo;
+      if (offsetWidth > offsetHeight) {
         photo.className = 'landscape';
-      } else if (width < height) {
+      } else if (offsetWidth < offsetHeight) {
         photo.className = 'portrait';
       } else {
         photo.className = 'square';

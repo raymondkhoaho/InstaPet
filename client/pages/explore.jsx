@@ -23,10 +23,10 @@ export default class Explore extends React.Component {
     if (!this.state.photos) return null;
     const photosList = this.state.photos;
     const onPhotoLoad = ({ target: photo }) => {
-      const { offsetHeight: height, offsetWidth: width } = photo;
-      if (width > height) {
+      const { offsetHeight, offsetWidth } = photo;
+      if (offsetWidth > offsetHeight) {
         photo.className = 'landscape';
-      } else if (width < height) {
+      } else if (offsetWidth < offsetHeight) {
         photo.className = 'portrait';
       } else {
         photo.className = 'square';
