@@ -7,7 +7,8 @@ export default class UserPage extends React.Component {
     super(props);
     this.state = {
       user: null,
-      photos: null
+      photoIndex: null,
+      isOpen: false
     };
   }
 
