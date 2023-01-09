@@ -56,7 +56,7 @@ app.get('/api/users', (req, res, next) => {
 });
 
 app.get('/api/user/:username', (req, res, next) => {
-  const id = req.params.username;
+  const username = req.params.username;
   const sql = `
   select "p"."caption",
          "p"."createdAt",
@@ -71,12 +71,12 @@ app.get('/api/user/:username', (req, res, next) => {
     where "u"."username" = $1
     order by "photoId" desc
   `;
-  const param = [id];
+  const param = [username];
   db.query(sql, param)
     .then(result => {
       const user = result.rows;
       if (!user) {
-        throw new ClientError(404, `Cannot find user with userId ${id}`);
+        throw new ClientError(404, `Cannot find user with username ${username}`);
       } else {
         res.status(200).json(user);
       }
