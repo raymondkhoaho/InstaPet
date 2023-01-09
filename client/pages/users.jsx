@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Image } from 'react-bootstrap';
+import { Container, Image, Nav } from 'react-bootstrap';
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -7,11 +7,6 @@ export default class Users extends React.Component {
     this.state = {
       users: null
     };
-  }
-
-  handleClick() {
-    // eslint-disable-next-line no-console
-    console.log('hello');
   }
 
   componentDidMount() {
@@ -28,7 +23,7 @@ export default class Users extends React.Component {
       const { profileImageUrl, userId, username } = user;
       return (
         <div key={userId} className="p-1 col-12 col-md-6 col-lg-4">
-          <div className="card-container" onClick={this.handleClick}>
+          <Nav.Link href={`#user?username=${username}`} className="card-container">
             <div>
               <Image
                 key={userId}
@@ -45,7 +40,7 @@ export default class Users extends React.Component {
                 {username}
               </p>
             </div>
-          </div>
+          </Nav.Link>
         </div>
 
       );

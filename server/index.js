@@ -2,7 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
-// const ClientError = require('./client-error');
+const ClientError = require('./client-error');
 const pg = require('pg');
 
 const app = express();
@@ -35,10 +35,7 @@ app.get('/api/photos', (req, res, next) => {
       const photos = result.rows;
       res.status(200).json(photos);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'An unexpected error occured.' });
-    });
+    .catch(err => next(err));
 });
 
 app.get('/api/users', (req, res, next) => {
@@ -55,11 +52,38 @@ app.get('/api/users', (req, res, next) => {
       const photos = result.rows;
       res.status(200).json(photos);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'An unexpected error occured.' });
-    });
+    .catch(err => next(err));
 });
+
+app.get('/api/user/:username', (req, res, next) => {
+  const username = req.params.username;
+  const sql = `
+  select "p"."caption",
+         "p"."createdAt",
+         "p"."imageUrl",
+         "p"."photoId",
+         "p"."userId",
+         "u"."profileImageUrl",
+         "u"."headerImageUrl",
+         "u"."username"
+    from "photos" as "p"
+    join "users" as "u" using ("userId")
+    where "u"."username" = $1
+    order by "photoId" desc
+  `;
+  const param = [username];
+  db.query(sql, param)
+    .then(result => {
+      const user = result.rows;
+      if (!user) {
+        throw new ClientError(404, `Cannot find user with username ${username}`);
+      } else {
+        res.status(200).json(user);
+      }
+    })
+    .catch(err => next(err));
+}
+);
 
 app.use(errorMiddleware);
 

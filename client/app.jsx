@@ -1,6 +1,7 @@
 import React from 'react';
 import Explore from './pages/explore';
 import Users from './pages/users';
+import UserPage from './pages/user-page';
 import NavBar from './components/navbar';
 import parseRoute from './lib/parse-route';
 import AppContext from './lib/app-context';
@@ -28,6 +29,9 @@ export default class App extends React.Component {
       return <Explore />;
     } else if (route.path === 'users') {
       return <Users />;
+    } else if (route.path === 'user') {
+      const username = route.params.get('username');
+      return <UserPage username={username}/>;
     } else {
       return null;
     }
