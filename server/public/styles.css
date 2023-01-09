@@ -19,13 +19,13 @@ img {
   flex-grow: 1;
 }
 
+.navbar-top {
+  z-index: 999 !important;
+}
+
 .photo-gallery,
 .user-gallery {
   transition: 1s linear;
-}
-
-.header-container {
-  display: flex;
 }
 
 .header-image {
@@ -37,13 +37,13 @@ img {
 .header-username {
   position: absolute;
   left: 225px;
-  top: 225px;
+  top: 210px;
   color: white;
 }
 
 .profile-image {
   position: absolute;
-  top: 150px;
+  top: 135px;
   left: 75px;
 }
 

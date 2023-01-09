@@ -52,8 +52,8 @@ export default class UserPage extends React.Component {
           <Image className="header-image" src={headerImageUrl} alt="header-image" />
           <Image className="profile-image" src={profileImageUrl} alt="profile-image" roundedCircle
             style={{
-              width: '150px',
-              height: '150px'
+              width: '125px',
+              height: '125px'
             }} />
           <h2 className="header-username">{username}</h2>
         </div>

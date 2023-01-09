@@ -18,7 +18,7 @@ export default function NavBar(props) {
   );
   return (
     <div>
-      <Navbar collapseOnSelect fixed="top" bg="light" expand="lg">
+      <Navbar collapseOnSelect className="navbar-top" fixed="top" bg="light" expand="lg">
         <Container>
           <Navbar.Brand className="logo fs-2" href="#explore">InstaPet</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
