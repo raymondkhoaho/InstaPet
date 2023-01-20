@@ -45,3 +45,11 @@ values (4, '/images/juniper5.JPG', 'juniper-5'),
        (1, '/images/ryleyleho8.jpg', 'ryleyleho-8'),
        (1, '/images/ryleyleho9.jpg', 'ryleyleho-9'),
        (1, '/images/ryleyleho10.jpg', 'ryleyleho-10');
+
+insert into "likes" ("photoId", "userId")
+     values (40, 2),
+            (39, 2),
+            (38, 2),
+            (37, 2),
+            (1, 1),
+            (2, 1);
