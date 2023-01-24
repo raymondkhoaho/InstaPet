@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
-import Lightbox from 'react-image-lightbox';
 
 export default class Explore extends React.Component {
   constructor(props) {
@@ -44,7 +43,6 @@ export default class Explore extends React.Component {
       );
     });
 
-    const { photoIndex, isOpen } = this.state;
     return (
       <Container>
         <div>
@@ -55,26 +53,6 @@ export default class Explore extends React.Component {
         <div>
           <div className="photo-gallery d-flex flex-wrap">
             {photos}
-            {isOpen && (
-              <Lightbox
-                imageCaption={photos[photoIndex].props.alt}
-                imagePadding={50}
-                mainSrc={photos[photoIndex].props.src}
-                nextSrc={photos[(photoIndex + 1) % photosList.length].props.src}
-                prevSrc={photos[(photoIndex + photos.length - 1) % photos.length].props.src}
-                onCloseRequest={() => this.setState({ isOpen: false })}
-                onMovePrevRequest={() =>
-                  this.setState({
-                    photoIndex: (photoIndex + photosList.length - 1) % photos.length
-                  })
-                }
-                onMoveNextRequest={() =>
-                  this.setState({
-                    photoIndex: (photoIndex + 1) % photos.length
-                  })
-                }
-              />
-            )}
           </div>
         </div>
       </Container>
