@@ -50,7 +50,7 @@ Try the application live at https://instapet.raymondkhoaho.com/
 
 ## Preview :eyes:
 
-
+![preview](/preview.gif)
 
 ## Development :technologist:
 ### Start Developing!
