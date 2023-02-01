@@ -1,13 +1,5 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
-import PhotoSwipeLightbox from 'photoswipe/lightbox';
-
-const lightbox = new PhotoSwipeLightbox({
-  gallery: '#my-gallery',
-  children: 'a',
-  pswpModule: () => import('photoswipe')
-});
-lightbox.init();
 
 export default class Explore extends React.Component {
   constructor(props) {
@@ -43,11 +35,11 @@ export default class Explore extends React.Component {
       const { imageUrl, photoId, caption } = photo;
       return (
         <Image
-        onLoad={onPhotoLoad}
-        key={photoId}
-        src={imageUrl}
-        alt={caption}
-        onClick={() => this.setState({ isOpen: true, photoIndex: index })} />
+          onLoad={onPhotoLoad}
+          key={photoId}
+          src={imageUrl}
+          alt={caption}
+          onClick={() => this.setState({ isOpen: true, photoIndex: index })} />
       );
     });
 
@@ -59,7 +51,7 @@ export default class Explore extends React.Component {
           </h3>
         </div>
         <div>
-          <div className="photo-gallery d-flex flex-wrap">
+          <div className="photo-gallery d-flex flex-wrap pswp-gallery" id="my-gallery">
             {photos}
           </div>
         </div>
