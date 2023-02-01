@@ -51,7 +51,7 @@ export default class Explore extends React.Component {
           </h3>
         </div>
         <div>
-          <div className="photo-gallery d-flex flex-wrap pswp-gallery" id="my-gallery">
+          <div className="photo-gallery d-flex flex-wrap">
             {photos}
           </div>
         </div>
