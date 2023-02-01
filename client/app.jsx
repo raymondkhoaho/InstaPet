@@ -5,6 +5,7 @@ import UserPage from './pages/user-page';
 import NavBar from './components/navbar';
 import parseRoute from './lib/parse-route';
 import AppContext from './lib/app-context';
+import 'react-image-lightbox/style.css';
 
 export default class App extends React.Component {
   constructor(props) {
