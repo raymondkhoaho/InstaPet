@@ -4,6 +4,7 @@ const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
+const argon2 = require('argon2'); // eslint-disable-line
 
 const app = express();
 const db = new pg.Pool({
@@ -14,7 +15,32 @@ const db = new pg.Pool({
 });
 
 app.use(staticMiddleware);
+
 app.use(express.json());
+
+app.post('/api/auth/sign-up', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields');
+  }
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+        insert into "users" ("username", "hashedPassword")
+        values ($1, $2)
+        returning *;
+        `;
+      const params = [username, hashedPassword];
+      db.query(sql, params)
+        .then(result => {
+          const newSignUp = result.rows[0];
+          res.status(201).json(newSignUp);
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
 
 app.get('/api/photos', (req, res, next) => {
   const sql = `
