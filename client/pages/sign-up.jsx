@@ -19,14 +19,14 @@ export default class Registration extends React.Component {
               <Card className="shadow px-4">
                 <Card.Body>
                   <div className="mb-3 mt-md-4">
-                    <h2 className="fw-bold mb-2 text-center text-uppercase logo">InstaPet</h2>
+                    <h2 className="fw-bold mb-2 text-center logo fs-2">InstaPet</h2>
                     <div className="mb-3">
                       <Form>
                         <Form.Group className="mb-3" controlId="Name">
                           <Form.Label className="text-center">
                             Username
                           </Form.Label>
-                          <Form.Control type="text" placeholder="Enter Name" />
+                          <Form.Control type="text" placeholder="Enter Username" />
                         </Form.Group>
 
                         <Form.Group
