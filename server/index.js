@@ -18,30 +18,6 @@ app.use(staticMiddleware);
 
 app.use(express.json());
 
-app.post('/api/auth/sign-up', (req, res, next) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    throw new ClientError(400, 'username and password are required fields');
-  }
-  argon2
-    .hash(password)
-    .then(hashedPassword => {
-      const sql = `
-        insert into "users" ("username", "hashedPassword")
-        values ($1, $2)
-        returning *;
-        `;
-      const params = [username, hashedPassword];
-      db.query(sql, params)
-        .then(result => {
-          const newSignUp = result.rows[0];
-          res.status(201).json(newSignUp);
-        })
-        .catch(err => next(err));
-    })
-    .catch(err => next(err));
-});
-
 app.get('/api/photos', (req, res, next) => {
   const sql = `
   select "p"."caption",
@@ -110,6 +86,33 @@ app.get('/api/user/:username', (req, res, next) => {
     .catch(err => next(err));
 }
 );
+
+app.post('/api/auth/sign-up', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields');
+  }
+  argon2
+    .hash(password)
+    .then(password => {
+      const sql = `
+        insert into "users" ("username", "hashedPassword")
+        values ($1, $2)
+        returning "userId", "username", "createdAt"
+        `;
+      const params = [username, password];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [newUser] = result.rows;
+      if (!newUser) {
+        throw new ClientError(409, 'Username already exists');
+      } else {
+        res.status(201).json(newUser);
+      }
+    })
+    .catch(err => next(err));
+});
 
 app.use(errorMiddleware);
 
