@@ -4,6 +4,7 @@ const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
+const argon2 = require('argon2'); // eslint-disable-line
 
 const app = express();
 const db = new pg.Pool({
@@ -14,6 +15,7 @@ const db = new pg.Pool({
 });
 
 app.use(staticMiddleware);
+
 app.use(express.json());
 
 app.get('/api/photos', (req, res, next) => {
@@ -84,6 +86,33 @@ app.get('/api/user/:username', (req, res, next) => {
     .catch(err => next(err));
 }
 );
+
+app.post('/api/auth/sign-up', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields');
+  }
+  argon2
+    .hash(password)
+    .then(password => {
+      const sql = `
+        insert into "users" ("username", "hashedPassword")
+        values ($1, $2)
+        returning "userId", "username", "createdAt"
+        `;
+      const params = [username, password];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [newUser] = result.rows;
+      if (!newUser) {
+        throw new ClientError(409, 'Username already exists');
+      } else {
+        res.status(201).json(newUser);
+      }
+    })
+    .catch(err => next(err));
+});
 
 app.use(errorMiddleware);
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Registration from './pages/sign-up';
 import Explore from './pages/explore';
 import Users from './pages/users';
 import UserPage from './pages/user-page';
@@ -27,6 +28,8 @@ export default class App extends React.Component {
     const { route } = this.state;
     if (route.path === 'explore' || route.path === '') {
       return <Explore />;
+    } else if (route.path === 'sign-up') {
+      return <Registration />;
     } else if (route.path === 'users') {
       return <Users />;
     } else if (route.path === 'user') {
