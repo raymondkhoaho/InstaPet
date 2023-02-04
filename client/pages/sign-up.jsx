@@ -6,15 +6,28 @@ export default class Registration extends React.Component {
     super(props);
     this.state = {
       signUpSuccess: false,
-      alert: false
+      alert: false,
+      username: '',
+      password: '',
+      confirmPassword: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    // eslint-disable-next-line no-console
+    console.log(event.target.value);
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+    // eslint-disable-next-line no-console
+    console.log(this.state);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log('hello');
+    console.log(this.state);
   }
 
   render() {
@@ -33,7 +46,7 @@ export default class Registration extends React.Component {
                           <Form.Label className="text-center">
                             Username
                           </Form.Label>
-                          <Form.Control required type="text" placeholder="Enter Username" />
+                          <Form.Control required type="text" placeholder="Enter Username" name="username" value={this.state.username} onChange={this.handleChange} />
                         </Form.Group>
 
                         <Form.Group
@@ -41,14 +54,14 @@ export default class Registration extends React.Component {
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Password</Form.Label>
-                          <Form.Control required type="password" placeholder="Password" />
+                          <Form.Control required type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} />
                         </Form.Group>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Confirm Password</Form.Label>
-                          <Form.Control required type="password" placeholder="Password" />
+                          <Form.Control required type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} />
                         </Form.Group>
                         <Form.Group
                           className="mb-3"
