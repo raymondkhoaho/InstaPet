@@ -16,18 +16,29 @@ export default class Registration extends React.Component {
   }
 
   handleChange(event) {
-    // eslint-disable-next-line no-console
-    console.log(event.target.value);
     const { name, value } = event.target;
     this.setState({ [name]: value });
-    // eslint-disable-next-line no-console
-    console.log(this.state);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(this.state);
+    if (this.state.password !== this.state.confirmPassword) {
+      // eslint-disable-next-line no-console
+      console.log('pw no match');
+    }
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    };
+    fetch('/api/auth/sign-up', req)
+      .then(res => res.json())
+      .then(result => {
+        window.location.hash = 'sign-in';
+      }
+      );
   }
 
   render() {
