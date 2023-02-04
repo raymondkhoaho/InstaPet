@@ -8,6 +8,13 @@ export default class Registration extends React.Component {
       signUpSuccess: false,
       alert: false
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // eslint-disable-next-line no-console
+    console.log('hello');
   }
 
   render() {
@@ -21,12 +28,12 @@ export default class Registration extends React.Component {
                   <div className="mb-3 mt-md-4">
                     <h2 className="fw-bold mb-2 text-center logo fs-2">InstaPet</h2>
                     <div className="mb-3">
-                      <Form>
+                      <Form onSubmit={this.handleSubmit}>
                         <Form.Group className="mb-3" controlId="Name">
                           <Form.Label className="text-center">
                             Username
                           </Form.Label>
-                          <Form.Control type="text" placeholder="Enter Username" />
+                          <Form.Control required type="text" placeholder="Enter Username" />
                         </Form.Group>
 
                         <Form.Group
@@ -34,14 +41,14 @@ export default class Registration extends React.Component {
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Password</Form.Label>
-                          <Form.Control type="password" placeholder="Password" />
+                          <Form.Control required type="password" placeholder="Password" />
                         </Form.Group>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Confirm Password</Form.Label>
-                          <Form.Control type="password" placeholder="Password" />
+                          <Form.Control required type="password" placeholder="Password" />
                         </Form.Group>
                         <Form.Group
                           className="mb-3"
@@ -49,7 +56,7 @@ export default class Registration extends React.Component {
                         />
                         <div className="d-grid">
                           <Button variant="primary" type="submit">
-                            Create Account
+                            Sign Up
                           </Button>
                         </div>
                       </Form>
