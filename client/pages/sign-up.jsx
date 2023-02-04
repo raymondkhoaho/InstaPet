@@ -25,20 +25,21 @@ export default class Registration extends React.Component {
     if (this.state.password !== this.state.confirmPassword) {
       // eslint-disable-next-line no-console
       console.log('pw no match');
+    } else {
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.state)
+      };
+      fetch('/api/auth/sign-up', req)
+        .then(res => res.json())
+        .then(result => {
+          window.location.hash = 'sign-in';
+        }
+        );
     }
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    };
-    fetch('/api/auth/sign-up', req)
-      .then(res => res.json())
-      .then(result => {
-        window.location.hash = 'sign-in';
-      }
-      );
   }
 
   render() {
