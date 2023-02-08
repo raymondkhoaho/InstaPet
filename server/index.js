@@ -4,7 +4,7 @@ const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
-const argon2 = require('argon2'); // eslint-disable-line
+const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 
 const authorizationMiddleware = require('./authorization-middleware');
@@ -125,7 +125,8 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   const sql = `
     select "userId",
            "hashedPassword",
-           "profileImageUrl"
+           "profileImageUrl",
+           "username"
       from "users"
      where "username" = $1
   `;
@@ -136,7 +137,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'Username not found.');
       }
-      const { userId, hashedPassword, profileImageUrl } = user;
+      const { userId, hashedPassword, profileImageUrl, username } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
