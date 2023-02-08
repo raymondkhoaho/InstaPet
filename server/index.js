@@ -120,7 +120,7 @@ app.post('/api/auth/sign-up', (req, res, next) => {
 app.post('/api/auth/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    throw new ClientError(401, 'username and password are required fields!');
+    throw new ClientError(401, 'Username and password are required fields!');
   }
   const sql = `
     select "userId",
