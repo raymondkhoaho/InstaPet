@@ -61,7 +61,7 @@ export default class AuthForm extends React.Component {
     const submitButtonText = action === 'sign-up'
       ? 'Sign Up'
       : 'Sign In';
-    const confirmField = action === 'sign-up'
+    const confirmFieldShow = action === 'sign-up'
       ? 'mb-3'
       : 'd-none';
     return (
@@ -90,7 +90,7 @@ export default class AuthForm extends React.Component {
                           <Form.Control required type="password" placeholder="Password" name="password" value={this.state.password} onChange={handleChange} />
                         </Form.Group>
                         <Form.Group
-                          className={confirmField}
+                          className={confirmFieldShow}
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Confirm Password</Form.Label>
@@ -107,7 +107,7 @@ export default class AuthForm extends React.Component {
                           </Button>
                         </div>
                       </Form>
-                      <div className="mt-3">
+                      <div className="mt-3 text-center">
                         <p className="mb-0  text-center">
                           {alternateActionText}
                           <a href={alternateActionHref} className="text-primary fw-bold">
