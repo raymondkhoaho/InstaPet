@@ -1,6 +1,5 @@
 import React from 'react';
-// import SignUp from './pages/sign-up';
-// import SignIn from './pages/sign-in';
+import jwtDecode from 'jwt-decode';
 import AuthForm from './components/auth-form';
 import Explore from './pages/explore';
 import Users from './pages/users';
@@ -15,15 +14,21 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
     this.renderPage = this.renderPage.bind(this);
   }
 
   componentDidMount() {
-    window.addEventListener('hashchange', event => {
-      this.setState({ route: parseRoute(window.location.hash) });
+    window.addEventListener('hashchange', () => {
+      this.setState({
+        route: parseRoute(window.location.hash)
+      });
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? jwtDecode(token) : null;
+    this.setState({ user, isAuthorizing: false });
   }
 
   renderPage() {
