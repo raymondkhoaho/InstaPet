@@ -8,7 +8,8 @@ export default class AuthForm extends React.Component {
       signUpSuccess: false,
       alert: false,
       username: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -22,22 +23,27 @@ export default class AuthForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { action } = this.props;
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    };
-    fetch(`/api/auth/${action}`, req)
-      .then(res => res.json())
-      .then(result => {
-        if (action === 'sign-up') {
-          window.location.hash = 'sign-in';
-        } else if (result.user && result.token) {
-          this.props.onSignIn(result);
-        }
-      });
+    if (action === 'sign-up' && (this.state.password !== this.state.confirmPassword)) {
+      // eslint-disable-next-line no-console
+      console.log('pw no match');
+    } else {
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.state)
+      };
+      fetch(`/api/auth/${action}`, req)
+        .then(res => res.json())
+        .then(result => {
+          if (action === 'sign-up') {
+            window.location.hash = 'sign-in';
+          } else if (result.user && result.token) {
+            this.props.onSignIn(result);
+          }
+        });
+    }
   }
 
   render() {
