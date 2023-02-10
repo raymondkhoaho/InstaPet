@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUp from './pages/sign-up';
+// import SignUp from './pages/sign-up';
 import SignIn from './pages/sign-in';
 import Explore from './pages/explore';
 import Users from './pages/users';
@@ -26,18 +26,16 @@ export default class App extends React.Component {
   }
 
   renderPage() {
-    const { route } = this.state;
-    if (route.path === 'explore' || route.path === '') {
+    const { path, params } = this.state.route;
+    if (path === 'explore' || path === '') {
       return <Explore />;
-    } else if (route.path === 'sign-up') {
-      return <SignUp />;
-    } else if (route.path === 'sign-in') {
+    } else if (path === 'sign-in' || path === 'sign-up') {
       return <SignIn />;
-    } else if (route.path === 'users') {
+    } else if (path === 'users') {
       return <Users />;
-    } else if (route.path === 'user') {
-      const username = route.params.get('username');
-      return <UserPage username={username}/>;
+    } else if (path === 'user') {
+      const username = params.get('username');
+      return <UserPage username={username} />;
     } else {
       return null;
     }
