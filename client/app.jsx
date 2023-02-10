@@ -1,6 +1,7 @@
 import React from 'react';
 // import SignUp from './pages/sign-up';
-import SignIn from './pages/sign-in';
+// import SignIn from './pages/sign-in';
+import AuthForm from './components/auth-form';
 import Explore from './pages/explore';
 import Users from './pages/users';
 import UserPage from './pages/user-page';
@@ -30,7 +31,7 @@ export default class App extends React.Component {
     if (path === 'explore' || path === '') {
       return <Explore />;
     } else if (path === 'sign-in' || path === 'sign-up') {
-      return <SignIn />;
+      return <AuthForm action={path} />;
     } else if (path === 'users') {
       return <Users />;
     } else if (path === 'user') {

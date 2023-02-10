@@ -21,6 +21,7 @@ export default class AuthForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { action } = this.props;
     const req = {
       method: 'POST',
       headers: {
@@ -28,15 +29,32 @@ export default class AuthForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     };
-    fetch('/api/auth/sign-in', req)
+    fetch(`/api/auth/${action}`, req)
       .then(res => res.json())
       .then(result => {
-        window.location.hash = 'sign-in';
-      }
-      );
+        if (action === 'sign-up') {
+          window.location.hash = 'sign-in';
+        } else if (result.user && result.token) {
+          this.props.onSignIn(result);
+        }
+      });
   }
 
   render() {
+    const { action } = this.props;
+    const { handleChange, handleSubmit } = this;
+    const alternateActionHref = action === 'sign-up'
+      ? '#sign-in'
+      : '#sign-up';
+    const alternateActionText = action === 'sign-up'
+      ? 'Already have an account? '
+      : 'Create new account? ';
+    const alternateActionTextLink = action === 'sign-up'
+      ? 'Sign in instead'
+      : 'Register now';
+    const submitButtonText = action === 'sign-up'
+      ? 'Sign Up'
+      : 'Sign In';
     return (
       <div>
         <Container>
@@ -47,12 +65,12 @@ export default class AuthForm extends React.Component {
                   <div className="mb-3 mt-md-4">
                     <h2 className="fw-bold mb-2 text-center logo fs-2">InstaPet</h2>
                     <div className="mb-3">
-                      <Form onSubmit={this.handleSubmit}>
+                      <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="Name">
                           <Form.Label className="text-center">
                             Username
                           </Form.Label>
-                          <Form.Control required type="text" placeholder="Enter Username" name="username" value={this.state.username} onChange={this.handleChange} />
+                          <Form.Control required type="text" placeholder="Enter Username" name="username" value={this.state.username} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group
@@ -60,7 +78,14 @@ export default class AuthForm extends React.Component {
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Password</Form.Label>
-                          <Form.Control required type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} />
+                          <Form.Control required type="password" placeholder="Password" name="password" value={this.state.password} onChange={handleChange} />
+                        </Form.Group>
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formBasicPassword"
+                        >
+                          <Form.Label>Confirm Password</Form.Label>
+                          <Form.Control required type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group
@@ -69,15 +94,15 @@ export default class AuthForm extends React.Component {
                         />
                         <div className="d-grid">
                           <Button variant="primary" type="submit">
-                            Sign In
+                            {submitButtonText}
                           </Button>
                         </div>
                       </Form>
                       <div className="mt-3">
                         <p className="mb-0  text-center">
-                          Create new account?{' '}
-                          <a href="{''}" className="text-primary fw-bold">
-                            Sign Up
+                          {alternateActionText}
+                          <a href={alternateActionHref} className="text-primary fw-bold">
+                            {alternateActionTextLink}
                           </a>
                         </p>
                       </div>
