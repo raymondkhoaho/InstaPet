@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
+// import AlertDismissable from './pw-fail';
 
 export default class AuthForm extends React.Component {
   constructor(props) {
