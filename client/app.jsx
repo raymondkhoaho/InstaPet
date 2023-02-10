@@ -49,6 +49,15 @@ export default class App extends React.Component {
     }
   }
 
+  renderNavBar() {
+    const { path } = this.state.route;
+    if (path !== 'sign-in' && path !== 'sign-up') {
+      return <NavBar />;
+    } else {
+      return null;
+    }
+  }
+
   handleSignIn(result) {
     const { user, token } = result;
     window.localStorage.setItem('react-context-jwt', token);
@@ -68,7 +77,7 @@ export default class App extends React.Component {
     return (
       <AppContext.Provider value={contextValue}>
         <>
-          <NavBar />
+          { this.renderNavBar() }
           { this.renderPage() }
         </>
       </AppContext.Provider>
