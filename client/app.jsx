@@ -75,3 +75,7 @@ export default class App extends React.Component {
     );
   }
 }
+
+App.contextType = AppContext;
+NavBar.contextType = AppContext;
+AuthForm.contextType = AppContext;
