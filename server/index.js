@@ -4,7 +4,10 @@ const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
-const argon2 = require('argon2'); // eslint-disable-line
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
+
+const authorizationMiddleware = require('./authorization-middleware');
 
 const app = express();
 const db = new pg.Pool({
@@ -113,6 +116,43 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
+app.post('/api/auth/sign-in', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(401, 'Username and password are required fields!');
+  }
+  const sql = `
+    select "userId",
+           "hashedPassword",
+           "profileImageUrl",
+           "username"
+      from "users"
+     where "username" = $1
+  `;
+  const params = [username];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'Username not found.');
+      }
+      const { userId, hashedPassword, profileImageUrl, username } = user;
+      return argon2
+        .verify(hashedPassword, password)
+        .then(isMatching => {
+          if (!isMatching) {
+            throw new ClientError(401, 'invalid password');
+          }
+          const payload = { userId, username };
+          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+          res.json({ token, user: payload, profileImageUrl });
+        });
+    })
+    .catch(err => next(err));
+});
+
+app.use(authorizationMiddleware);
 
 app.use(errorMiddleware);
 

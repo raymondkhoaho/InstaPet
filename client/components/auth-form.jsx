@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 
-export default class SignUp extends React.Component {
+export default class AuthForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,8 @@ export default class SignUp extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    if (this.state.password !== this.state.confirmPassword) {
+    const { action } = this.props;
+    if (action === 'sign-up' && (this.state.password !== this.state.confirmPassword)) {
       // eslint-disable-next-line no-console
       console.log('pw no match');
     } else {
@@ -33,16 +34,36 @@ export default class SignUp extends React.Component {
         },
         body: JSON.stringify(this.state)
       };
-      fetch('/api/auth/sign-up', req)
+      fetch(`/api/auth/${action}`, req)
         .then(res => res.json())
         .then(result => {
-          window.location.hash = 'sign-in';
-        }
-        );
+          if (action === 'sign-up') {
+            window.location.hash = 'sign-in';
+          } else if (result.user && result.token) {
+            this.props.onSignIn(result);
+          }
+        });
     }
   }
 
   render() {
+    const { action } = this.props;
+    const { handleChange, handleSubmit } = this;
+    const alternateActionHref = action === 'sign-up'
+      ? '#sign-in'
+      : '#sign-up';
+    const alternateActionText = action === 'sign-up'
+      ? 'Already have an account? '
+      : 'Create new account? ';
+    const alternateActionTextLink = action === 'sign-up'
+      ? 'Sign in instead'
+      : 'Register now';
+    const submitButtonText = action === 'sign-up'
+      ? 'Sign Up'
+      : 'Sign In';
+    const confirmFieldShow = action === 'sign-up'
+      ? 'mb-3'
+      : 'd-none';
     return (
       <div>
         <Container>
@@ -53,12 +74,12 @@ export default class SignUp extends React.Component {
                   <div className="mb-3 mt-md-4">
                     <h2 className="fw-bold mb-2 text-center logo fs-2">InstaPet</h2>
                     <div className="mb-3">
-                      <Form onSubmit={this.handleSubmit}>
+                      <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="Name">
                           <Form.Label className="text-center">
                             Username
                           </Form.Label>
-                          <Form.Control required type="text" placeholder="Enter Username" name="username" value={this.state.username} onChange={this.handleChange} />
+                          <Form.Control required type="text" placeholder="Enter Username" name="username" value={this.state.username} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group
@@ -66,30 +87,31 @@ export default class SignUp extends React.Component {
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Password</Form.Label>
-                          <Form.Control required type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} />
+                          <Form.Control required type="password" placeholder="Password" name="password" value={this.state.password} onChange={handleChange} />
                         </Form.Group>
                         <Form.Group
-                          className="mb-3"
+                          className={confirmFieldShow}
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Confirm Password</Form.Label>
-                          <Form.Control required type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleChange} />
+                          <Form.Control required type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={handleChange} />
                         </Form.Group>
+
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicCheckbox"
                         />
                         <div className="d-grid">
                           <Button variant="primary" type="submit">
-                            Sign Up
+                            {submitButtonText}
                           </Button>
                         </div>
                       </Form>
-                      <div className="mt-3">
+                      <div className="mt-3 text-center">
                         <p className="mb-0  text-center">
-                          Already have an account?{' '}
-                          <a href="{''}" className="text-primary fw-bold">
-                            Sign In
+                          {alternateActionText}
+                          <a href={alternateActionHref} className="text-primary fw-bold">
+                            {alternateActionTextLink}
                           </a>
                         </p>
                       </div>
