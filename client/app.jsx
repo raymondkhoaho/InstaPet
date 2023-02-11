@@ -22,7 +22,7 @@ export default class App extends React.Component {
     };
     this.renderPage = this.renderPage.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
-    // this.handleSignOut = this.handleSignOut.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -69,10 +69,10 @@ export default class App extends React.Component {
     this.setState({ user });
   }
 
-  // handleSignOut() {
-  //   window.localStorage.removeItem('react-context-jwt');
-  //   this.setState({ user: null });
-  // }
+  handleSignOut() {
+    window.localStorage.removeItem('react-context-jwt');
+    this.setState({ user: null });
+  }
 
   render() {
     if (this.state.isAuthorizing) return null;
