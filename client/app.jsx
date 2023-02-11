@@ -2,6 +2,7 @@ import React from 'react';
 import jwtDecode from 'jwt-decode';
 import AuthForm from './components/auth-form';
 import Explore from './pages/explore';
+import Home from './pages/home';
 import Users from './pages/users';
 import UserPage from './pages/user-page';
 import NavBar from './components/navbar';
@@ -14,6 +15,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       user: null,
+      token: null,
       isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
@@ -35,7 +37,9 @@ export default class App extends React.Component {
 
   renderPage() {
     const { path, params } = this.state.route;
-    if (path === 'explore' || path === '') {
+    if (path === '') {
+      return <Home />;
+    } else if (path === 'explore') {
       return <Explore />;
     } else if (path === 'sign-in' || path === 'sign-up') {
       return <AuthForm action={path} />;

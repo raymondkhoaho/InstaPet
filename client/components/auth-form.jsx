@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 // import AlertDismissable from './pw-fail';
@@ -42,6 +43,8 @@ export default class AuthForm extends React.Component {
             window.location.hash = 'sign-in';
           } else if (result.user && result.token) {
             this.props.onSignIn(result);
+            console.log(result.token);
+            console.log(this.props);
           }
         });
     }
