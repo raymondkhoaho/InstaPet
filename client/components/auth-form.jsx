@@ -1,5 +1,9 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
+import AppContext from '../lib/app-context';
+
+// import AlertDismissable from './pw-fail';
 
 export default class AuthForm extends React.Component {
   constructor(props) {
@@ -7,6 +11,7 @@ export default class AuthForm extends React.Component {
     this.state = {
       signUpSuccess: false,
       alert: false,
+      required: null,
       username: '',
       password: '',
       confirmPassword: ''
@@ -40,7 +45,8 @@ export default class AuthForm extends React.Component {
           if (action === 'sign-up') {
             window.location.hash = 'sign-in';
           } else if (result.user && result.token) {
-            this.props.onSignIn(result);
+            this.context.handleSignIn(result);
+            window.location.hash = '';
           }
         });
     }
@@ -64,6 +70,7 @@ export default class AuthForm extends React.Component {
     const confirmFieldShow = action === 'sign-up'
       ? 'mb-3'
       : 'd-none';
+
     return (
       <div>
         <Container>
@@ -94,7 +101,7 @@ export default class AuthForm extends React.Component {
                           controlId="formBasicPassword"
                         >
                           <Form.Label>Confirm Password</Form.Label>
-                          <Form.Control required type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={handleChange} />
+                          <Form.Control type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group
@@ -126,3 +133,5 @@ export default class AuthForm extends React.Component {
     );
   }
 }
+
+AuthForm.contextType = AppContext;
