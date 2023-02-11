@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Container, Nav, Navbar, Image } from 'react-bootstrap';
+import { Container, Nav, Navbar, Image, NavDropdown } from 'react-bootstrap';
 import AppContext from '../lib/app-context';
 
 export default class NavBar extends React.Component {
@@ -35,7 +35,10 @@ export default class NavBar extends React.Component {
                 <Nav.Link href="#explore"><i className="fa-solid fa-magnifying-glass p-2" />Explore</Nav.Link>
                 <Nav.Link href="#users"><i className="icon fa-solid fa-users p-2" />Users</Nav.Link>
                 <Nav.Link href="#newpost"><i className="fa-solid fa-circle-plus p-2" />New Post</Nav.Link>
-                <Nav.Link href="#profile">{ user }</Nav.Link>
+                <NavDropdown title={ user } id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
+                  <NavDropdown.Item onClick={this.context.handleSignOut} href="">Sign out</NavDropdown.Item>
+                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
           </Container>

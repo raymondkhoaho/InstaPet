@@ -1,7 +1,6 @@
 import React from 'react';
 import jwtDecode from 'jwt-decode';
 import AuthForm from './components/auth-form';
-import Explore from './pages/explore';
 import Home from './pages/home';
 import Users from './pages/users';
 import UserPage from './pages/user-page';
@@ -22,7 +21,7 @@ export default class App extends React.Component {
     };
     this.renderPage = this.renderPage.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
-    // this.handleSignOut = this.handleSignOut.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +39,6 @@ export default class App extends React.Component {
     const { path, params } = this.state.route;
     if (path === '') {
       return <Home />;
-    } else if (path === 'explore') {
-      return <Explore />;
     } else if (path === 'sign-in' || path === 'sign-up') {
       return <AuthForm action={path} />;
     } else if (path === 'users') {
@@ -55,8 +52,8 @@ export default class App extends React.Component {
   }
 
   renderNavBar() {
-    const { path } = this.state.route;
-    if (path !== 'sign-in' && path !== 'sign-up') {
+    const { user } = this.state;
+    if (user !== null) {
       return <NavBar />;
     } else {
       return null;
@@ -69,10 +66,11 @@ export default class App extends React.Component {
     this.setState({ user });
   }
 
-  // handleSignOut() {
-  //   window.localStorage.removeItem('react-context-jwt');
-  //   this.setState({ user: null });
-  // }
+  handleSignOut() {
+    window.localStorage.removeItem('react-context-jwt');
+    this.setState({ user: null });
+    window.location.hash = '';
+  }
 
   render() {
     if (this.state.isAuthorizing) return null;
