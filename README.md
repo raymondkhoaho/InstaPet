@@ -39,6 +39,8 @@ Try the application live at https://instapet.raymondkhoaho.com/
 * User can view list of animal profiles of community
 * User can view photos of a selected animal profile
 * User can sign up for an account
+* User can login to their account
+* User can sign out of their account
 
 
 ## Upcoming Features :book:
@@ -46,8 +48,7 @@ Try the application live at https://instapet.raymondkhoaho.com/
 * User can view/add comments on a photo
 * User can upload photo
 * User can delete photo
-* User can login to their account
-* User can sign out of their account
+
 
 ## Preview :eyes:
 
