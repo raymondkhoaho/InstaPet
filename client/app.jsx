@@ -1,7 +1,6 @@
 import React from 'react';
 import jwtDecode from 'jwt-decode';
 import AuthForm from './components/auth-form';
-import Explore from './pages/explore';
 import Home from './pages/home';
 import Users from './pages/users';
 import UserPage from './pages/user-page';
@@ -40,8 +39,6 @@ export default class App extends React.Component {
     const { path, params } = this.state.route;
     if (path === '') {
       return <Home />;
-    } else if (path === 'explore') {
-      return <Explore />;
     } else if (path === 'sign-in' || path === 'sign-up') {
       return <AuthForm action={path} />;
     } else if (path === 'users') {
