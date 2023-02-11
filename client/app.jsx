@@ -52,8 +52,8 @@ export default class App extends React.Component {
   }
 
   renderNavBar() {
-    const { path } = this.state.route;
-    if (path !== 'sign-in' && path !== 'sign-up') {
+    const { user } = this.state;
+    if (user !== null) {
       return <NavBar />;
     } else {
       return null;
