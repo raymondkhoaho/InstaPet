@@ -144,9 +144,9 @@ app.post('/api/auth/sign-in', (req, res, next) => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid password');
           }
-          const payload = { userId, username };
+          const payload = { userId, username, profileImageUrl };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-          res.json({ token, user: payload, profileImageUrl });
+          res.json({ token, user: payload });
         });
     })
     .catch(err => next(err));

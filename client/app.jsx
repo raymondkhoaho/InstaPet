@@ -16,6 +16,7 @@ export default class App extends React.Component {
     this.state = {
       user: null,
       token: null,
+      profileImageUrl: '',
       isAuthorizing: true,
       route: parseRoute(window.location.hash)
     };
@@ -91,3 +92,4 @@ export default class App extends React.Component {
 
 App.contextType = AppContext;
 AuthForm.contextType = AppContext;
+NavBar.contextType = AppContext;
