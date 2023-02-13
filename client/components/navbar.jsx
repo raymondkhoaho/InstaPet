@@ -31,7 +31,7 @@ export default class NavBar extends React.Component {
             <Navbar.Brand className="logo fs-2" href="#explore">InstaPet</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="ms-auto d-lg-flex">
+              <Nav className="ms-auto d-lg-flex align-items-center">
                 <Nav.Link href="#explore"><i className="fa-solid fa-magnifying-glass p-2" />Explore</Nav.Link>
                 <Nav.Link href="#users"><i className="icon fa-solid fa-users p-2" />Users</Nav.Link>
                 <Nav.Link href="#newpost"><i className="fa-solid fa-circle-plus p-2" />New Post</Nav.Link>
