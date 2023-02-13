@@ -165,14 +165,14 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
   if (!caption) {
     throw new ClientError(400, 'caption is a required field');
   }
-  const url = '/images/' + req.file.filename;
+  const imageUrl = '/images/' + req.file.filename;
   const sql = `
-  insert into "images" ("caption", "url")
+  insert into "photos" ("caption", "imageUrl")
   values ($1, $2)
     returning *
   `;
 
-  const params = [caption, url];
+  const params = [caption, imageUrl];
 
   db.query(sql, params)
     .then(result => {
