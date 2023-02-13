@@ -2,8 +2,7 @@
 import React from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 import AppContext from '../lib/app-context';
-
-// import AlertDismissable from './pw-fail';
+import AlertDismissable from './pw-fail';
 
 export default class AuthForm extends React.Component {
   constructor(props) {
@@ -11,7 +10,6 @@ export default class AuthForm extends React.Component {
     this.state = {
       signUpSuccess: false,
       alert: false,
-      required: null,
       username: '',
       password: '',
       confirmPassword: ''
@@ -30,15 +28,18 @@ export default class AuthForm extends React.Component {
     event.preventDefault();
     const { action } = this.props;
     if (action === 'sign-up' && (this.state.password !== this.state.confirmPassword)) {
-      // eslint-disable-next-line no-console
-      console.log('pw no match');
+      this.setState({ alert: true });
     } else {
       const req = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(({
+          username: this.state.username.toLowerCase(),
+          password: this.state.password,
+          confirmPassword: this.state.confirmPassword
+        }))
       };
       fetch(`/api/auth/${action}`, req)
         .then(res => res.json())
@@ -81,6 +82,9 @@ export default class AuthForm extends React.Component {
     const demoAutoFill = action === 'sign-in'
       ? 'mt-3 text-center'
       : 'd-none';
+    const alert = this.state.alert === true
+      ? <AlertDismissable />
+      : null;
 
     return (
       <div>
@@ -114,7 +118,7 @@ export default class AuthForm extends React.Component {
                           <Form.Label>Confirm Password</Form.Label>
                           <Form.Control type="password" placeholder="Password" name="confirmPassword" value={this.state.confirmPassword} onChange={handleChange} />
                         </Form.Group>
-
+                        {alert}
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicCheckbox"
