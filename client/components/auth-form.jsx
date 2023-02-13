@@ -18,6 +18,7 @@ export default class AuthForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDemo = this.handleDemo.bind(this);
   }
 
   handleChange(event) {
@@ -52,9 +53,16 @@ export default class AuthForm extends React.Component {
     }
   }
 
+  handleDemo(event) {
+    this.setState({
+      username: 'demo',
+      password: 'password'
+    });
+  }
+
   render() {
     const { action } = this.props;
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, handleDemo } = this;
     const alternateActionHref = action === 'sign-up'
       ? '#sign-in'
       : '#sign-up';
@@ -69,6 +77,9 @@ export default class AuthForm extends React.Component {
       : 'Sign In';
     const confirmFieldShow = action === 'sign-up'
       ? 'mb-3'
+      : 'd-none';
+    const demoAutoFill = action === 'sign-in'
+      ? 'mt-3 text-center'
       : 'd-none';
 
     return (
@@ -121,6 +132,9 @@ export default class AuthForm extends React.Component {
                             {alternateActionTextLink}
                           </a>
                         </p>
+                      </div>
+                      <div className={demoAutoFill}>
+                        <Button variant="primary" type="button" onClick={handleDemo}>Demo</Button>
                       </div>
                     </div>
                   </div>
