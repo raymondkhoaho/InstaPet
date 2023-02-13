@@ -124,6 +124,9 @@ export default class AuthForm extends React.Component {
                             {submitButtonText}
                           </Button>
                         </div>
+                        <div className={demoAutoFill}>
+                          <Button variant="primary" type="button" onClick={handleDemo}>Demo</Button>
+                        </div>
                       </Form>
                       <div className="mt-3 text-center">
                         <p className="mb-0  text-center">
@@ -132,9 +135,6 @@ export default class AuthForm extends React.Component {
                             {alternateActionTextLink}
                           </a>
                         </p>
-                      </div>
-                      <div className={demoAutoFill}>
-                        <Button variant="primary" type="button" onClick={handleDemo}>Demo</Button>
                       </div>
                     </div>
                   </div>
