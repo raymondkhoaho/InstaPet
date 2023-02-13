@@ -11,7 +11,6 @@ export default class AuthForm extends React.Component {
     this.state = {
       signUpSuccess: false,
       alert: false,
-      required: null,
       username: '',
       password: '',
       confirmPassword: ''
@@ -38,7 +37,11 @@ export default class AuthForm extends React.Component {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(({
+          username: this.state.username.toLowerCase(),
+          password: this.state.password,
+          confirmPassword: this.state.confirmPassword
+        }))
       };
       fetch(`/api/auth/${action}`, req)
         .then(res => res.json())
