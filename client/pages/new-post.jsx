@@ -64,7 +64,7 @@ export default class NewPost extends React.Component {
                   name="image"
                   ref={this.fileInputRef}
                   accept=".png, .jpg, .jpeg, .gif" />
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>
                   Upload
                 </button>
               </div>
