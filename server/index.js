@@ -1,5 +1,5 @@
 require('dotenv/config');
-const path = require('path');
+// const path = require('path');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
@@ -18,13 +18,13 @@ const db = new pg.Pool({
     rejectUnauthorized: false
   }
 });
-const publicPath = path.join(__dirname, 'public');
+// const publicPath = path.join(__dirname, 'public');
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(require('./dev-middleware')(publicPath));
-}
+// if (process.env.NODE_ENV === 'development') {
+//   app.use(require('./dev-middleware')(publicPath));
+// }
 
-app.use(express.static(publicPath));
+// app.use(express.static(publicPath));
 app.use(staticMiddleware);
 
 app.use(express.json());
