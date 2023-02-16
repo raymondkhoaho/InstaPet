@@ -5,6 +5,7 @@ import Home from './pages/home';
 import Users from './pages/users';
 import UserPage from './pages/user-page';
 import NavBar from './components/navbar';
+import NewPost from './pages/new-post';
 import parseRoute from './lib/parse-route';
 import AppContext from './lib/app-context';
 import 'react-image-lightbox/style.css';
@@ -46,6 +47,8 @@ export default class App extends React.Component {
     } else if (path === 'user') {
       const username = params.get('username');
       return <UserPage username={username} />;
+    } else if (path === 'newpost') {
+      return <NewPost />;
     } else {
       return null;
     }

@@ -1,7 +1,9 @@
 require('dotenv/config');
+const path = require('path');
 const express = require('express');
 const staticMiddleware = require('./static-middleware');
 const errorMiddleware = require('./error-middleware');
+const uploadsMiddleware = require('./uploads-middleware');
 const ClientError = require('./client-error');
 const pg = require('pg');
 const argon2 = require('argon2');
@@ -16,7 +18,13 @@ const db = new pg.Pool({
     rejectUnauthorized: false
   }
 });
+const publicPath = path.join(__dirname, 'public');
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(require('./dev-middleware')(publicPath));
+}
+
+app.use(express.static(publicPath));
 app.use(staticMiddleware);
 
 app.use(express.json());
@@ -148,6 +156,28 @@ app.post('/api/auth/sign-in', (req, res, next) => {
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
+  const { caption } = req.body;
+  if (!caption) {
+    throw new ClientError(400, 'caption is a required field');
+  }
+  const imageUrl = '/images/' + req.file.filename;
+  const sql = `
+  insert into "photos" ("caption", "imageUrl")
+  values ($1, $2)
+    returning *
+  `;
+
+  const params = [caption, imageUrl];
+
+  db.query(sql, params)
+    .then(result => {
+      const [returning] = result.rows;
+      res.json(returning);
     })
     .catch(err => next(err));
 });
