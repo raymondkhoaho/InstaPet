@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Image } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
+import LikeButton from '../components/heart-button';
 
 export default class Explore extends React.Component {
   constructor(props) {
@@ -43,7 +44,6 @@ export default class Explore extends React.Component {
           onClick={() => this.setState({ isOpen: true, photoIndex: index })} />
       );
     });
-
     const { photoIndex, isOpen } = this.state;
     return (
       <Container>
@@ -56,7 +56,8 @@ export default class Explore extends React.Component {
           <div className="photo-gallery d-flex flex-wrap">
             {photos}
             {isOpen && (
-              <Lightbox
+              <>
+                <Lightbox
                 imageCaption={photos[photoIndex].props.alt}
                 imagePadding={50}
                 mainSrc={photos[photoIndex].props.src}
@@ -74,6 +75,8 @@ export default class Explore extends React.Component {
                   })
                 }
               />
+                <LikeButton />
+              </>
             )}
           </div>
         </div>
