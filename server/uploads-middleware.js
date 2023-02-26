@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
@@ -24,6 +26,6 @@ const storage = multerS3({
 
 const uploadsMiddleware = multer({
   storage
-}).single('image');
+}).single('file-to-upload');
 
 module.exports = uploadsMiddleware;
