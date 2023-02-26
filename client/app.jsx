@@ -38,7 +38,7 @@ export default class App extends React.Component {
 
   renderPage() {
     const { path, params } = this.state.route;
-    if (path === '') {
+    if (path === '' || path === 'explore') {
       return <Home />;
     } else if (path === 'sign-in' || path === 'sign-up') {
       return <AuthForm action={path} />;
