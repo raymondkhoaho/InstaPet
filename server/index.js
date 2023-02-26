@@ -160,19 +160,22 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.use(authorizationMiddleware);
+
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
+  const { userId } = req.user;
   const { caption } = req.body;
   if (!caption) {
     throw new ClientError(400, 'caption is a required field');
   }
   const imageUrl = '/images/' + req.file.filename;
   const sql = `
-  insert into "photos" ("caption", "imageUrl")
-  values ($1, $2)
+  insert into "photos" ("caption", "imageUrl", "userId")
+  values ($1, $2, $3)
     returning *
   `;
 
-  const params = [caption, imageUrl];
+  const params = [caption, imageUrl, userId];
 
   db.query(sql, params)
     .then(result => {
@@ -181,8 +184,6 @@ app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
     })
     .catch(err => next(err));
 });
-
-app.use(authorizationMiddleware);
 
 app.use(errorMiddleware);
 
