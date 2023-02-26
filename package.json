@@ -6,7 +6,7 @@
   "main": "server/index.js",
   "engines": {
     "node": "18.7.0",
-    "npm" : "8.15.0"
+    "npm": "8.15.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node .",
@@ -31,6 +31,7 @@
     "photoswipe": "^5.3.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
+    "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",
     "react-image-lightbox": "^5.1.4"
   },
