@@ -1,7 +1,7 @@
 const path = require('path');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const S3 = require('@aws-sdk/client-s3');
+const { S3 } = require('@aws-sdk/client-s3');
 
 const s3 = new S3({
   region: process.env.AWS_S3_REGION,
@@ -24,6 +24,6 @@ const storage = multerS3({
 
 const uploadsMiddleware = multer({
   storage
-}).single('file-to-upload');
+}).single('image');
 
 module.exports = uploadsMiddleware;
