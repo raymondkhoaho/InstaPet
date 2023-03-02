@@ -160,41 +160,41 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     .catch(err => next(err));
 });
 
-// app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
-//   const { userId } = req.user;
-//   const { caption } = req.body;
-//   if (!caption) {
-//     throw new ClientError(400, 'caption is a required field');
-//   }
-//   const imageUrl = '/images/' + req.file.filename;
-//   const sql = `
-//   insert into "photos" ("caption", "imageUrl", "userId")
-//   values ($1, $2, $3)
-//     returning *
-//   `;
-
-//   const params = [caption, imageUrl, userId];
-
-//   db.query(sql, params)
-//     .then(result => {
-//       const [returning] = result.rows;
-//       res.json(returning);
-//     })
-//     .catch(err => next(err));
-// });
-
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
+  const userId = 1;
+  const { caption } = req.body;
+  if (!caption) {
+    throw new ClientError(400, 'caption is a required field');
+  }
+  const imageUrl = req.file.location;
+  const sql = `
+  insert into "photos" ("caption", "imageUrl", "userId")
+  values ($1, $2, $3)
+    returning *
+  `;
 
-  // eslint-disable-next-line no-console
-  console.log('req.file:', req.file); // https://www.npmjs.com/package/multer-s3#file-information
+  const params = [caption, imageUrl, userId];
 
-  // eslint-disable-next-line no-unused-vars
-  const fileUrl = req.file.location; // The S3 url to access the uploaded file later
-
-  /* "logic" */
-
-  res.end(); // this is just here so my request doesn't hang
+  db.query(sql, params)
+    .then(result => {
+      const [returning] = result.rows;
+      res.json(returning);
+    })
+    .catch(err => next(err));
 });
+
+// app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
+
+//   // eslint-disable-next-line no-console
+//   console.log('req.file:', req.file); // https://www.npmjs.com/package/multer-s3#file-information
+
+//   // eslint-disable-next-line no-unused-vars
+//   const fileUrl = req.file.location; // The S3 url to access the uploaded file later
+
+//   /* "logic" */
+
+//   res.end(); // this is just here so my request doesn't hang
+// });
 
 app.use(authorizationMiddleware);
 
