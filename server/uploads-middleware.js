@@ -1,7 +1,9 @@
+// eslint-disable-next-line no-unused-vars
+const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const S3 = require('@aws-sdk/client-s3');
+const { S3 } = require('@aws-sdk/client-s3');
 
 const s3 = new S3({
   region: process.env.AWS_S3_REGION,
