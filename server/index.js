@@ -161,7 +161,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
 });
 
 app.post('/api/uploads', uploadsMiddleware, (req, res, next) => {
-  const userId = 1;
+  const { userId } = req.user;
   const { caption } = req.body;
   if (!caption) {
     throw new ClientError(400, 'caption is a required field');
