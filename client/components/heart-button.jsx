@@ -1,10 +1,20 @@
-import React from 'react';
-import { Heart } from 'react-bootstrap-icons';
+import React, { useState } from 'react';
+import { Heart, HeartFill } from 'react-bootstrap-icons';
 
-export default class LikeButton extends React.Component {
-  render() {
-    return (
-      <Heart className='likebutton' color="royalblue" size={16} />
-    );
-  }
-}
+const LikeButton = () => {
+  const [liked, setLiked] = useState(false);
+
+  const handleLikeToggle = () => {
+    setLiked(prevLiked => !prevLiked);
+  };
+
+  return (
+    <div onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
+      {liked
+        ? (<HeartFill className="likebutton" color="royalblue" size={24} />)
+        : (<Heart className="likebutton" color="royalblue" size={24} />)}
+    </div>
+  );
+};
+
+export default LikeButton;
