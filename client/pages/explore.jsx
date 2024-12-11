@@ -28,7 +28,7 @@ const Explore = () => {
     }
   };
 
-  const handlePhotoClick = (index) => {
+  const handlePhotoClick = index => {
     setIsOpen(true);
     setPhotoIndex(index);
   };

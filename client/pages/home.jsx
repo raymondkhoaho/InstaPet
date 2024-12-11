@@ -1,20 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../lib/app-context';
 import Redirect from '../components/redirect';
 import Explore from './explore';
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = null;
+const Home = () => {
+  const { user } = useContext(AppContext);
+
+  if (!user) {
+    return <Redirect to="sign-in" />;
   }
 
-  render() {
-    if (!this.context.user) return <Redirect to='sign-in' />;
+  return <Explore />;
+};
 
-    return <Explore />;
-  }
-
-}
-
-Home.contextType = AppContext;
+export default Home;
