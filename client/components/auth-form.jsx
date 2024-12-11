@@ -12,14 +12,14 @@ const AuthForm = ({ action }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const context = useContext(AppContext);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
     if (name === 'username') setUsername(value);
     if (name === 'password') setPassword(value);
     if (name === 'confirmPassword') setConfirmPassword(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (action === 'sign-up' && password !== confirmPassword) {
       setAlert(true);
@@ -27,17 +27,17 @@ const AuthForm = ({ action }) => {
       const req = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           username: username.toLowerCase(),
           password,
-          confirmPassword,
-        }),
+          confirmPassword
+        })
       };
       fetch(`/api/auth/${action}`, req)
-        .then((res) => res.json())
-        .then((result) => {
+        .then(res => res.json())
+        .then(result => {
           if (action === 'sign-up') {
             window.location.hash = 'sign-in';
           } else if (result.user && result.token) {

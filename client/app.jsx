@@ -27,7 +27,7 @@ const App = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleSignIn = useCallback((result) => {
+  const handleSignIn = useCallback(result => {
     const { user, token } = result;
     window.localStorage.setItem('react-context-jwt', token);
     setUser(user);
