@@ -39,7 +39,10 @@ const AuthForm = ({ action }) => {
         .then(res => res.json())
         .then(result => {
           if (action === 'sign-up') {
-            window.location.hash = 'sign-in';
+            setSignUpSuccess(true); // Indicate sign-up success
+            setTimeout(() => {
+              window.location.hash = 'sign-in';
+            }, 2000); // Redirect after 2 seconds
           } else if (result.user && result.token) {
             context.handleSignIn(result);
             window.location.hash = '';
@@ -60,6 +63,9 @@ const AuthForm = ({ action }) => {
   const confirmFieldShow = action === 'sign-up' ? 'mb-3' : 'd-none';
   const demoAutoFill = action === 'sign-in' ? 'mt-3 text-center' : 'd-none';
   const alertMessage = alert ? <AlertDismissable /> : null;
+  const successMessage = signUpSuccess
+    ? (<div className="text-center text-success mb-3">Sign-up successful! Redirecting to sign-in...</div>)
+    : null;
 
   return (
     <div>
@@ -72,6 +78,7 @@ const AuthForm = ({ action }) => {
                   <h2 className="fw-bold mb-2 text-center logo fs-2">InstaPet</h2>
                   <div className="mb-3">
                     <Form onSubmit={handleSubmit}>
+                      {successMessage}
                       <Form.Group className="mb-3" controlId="Name">
                         <Form.Label className="text-center">Username</Form.Label>
                         <Form.Control
